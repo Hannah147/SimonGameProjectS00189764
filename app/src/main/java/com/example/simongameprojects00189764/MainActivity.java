@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Object mutex = new Object();
     int[] gameSequence = new int[120];
     int arrayIndex = 0;
-//    TextView tvTest;
 
     CountDownTimer ct = new CountDownTimer(6000,  1250) {
 
@@ -46,17 +45,6 @@ public class MainActivity extends AppCompatActivity {
             sequenceActivity.putExtra("gameSequence", gameSequence);
             startActivity(sequenceActivity);
             finish();
-
-            // start next activity
-
-            // put the sequence into the next activity
-            // stack overglow https://stackoverflow.com/questions/3848148/sending-arrays-with-intent-putextra
-            //Intent i = new Intent(A.this, B.class);
-            //i.putExtra("numbers", array);
-            //startActivity(i);
-
-            // start the next activity
-            // int[] arrayB = extras.getIntArray("numbers");
         }
     };
 
@@ -69,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         bBlue = findViewById(R.id.btnBlue);
         bYellow = findViewById(R.id.btnYellow);
         bGreen = findViewById(R.id.btnGreen);
-//        tvTest = findViewById(R.id.tvTest);
     }
 
     public void doPlay(View view) {

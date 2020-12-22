@@ -24,7 +24,6 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
     private final int YELLOW = 3;
     private final int GREEN = 4;
 
-    TextView tvTest, tvTest2, tvTest3, tvTest4, tvResult;
     Button btnBlue, btnYellow, btnGreen, btnRed;
     boolean blue = false, yellow = false, green = false, red = false, firstSequence = false, secondSequence = false, thirdSequence = false, fourthSequence = false, isFlat;
     int[] gameSequence = new int[120];
@@ -39,12 +38,6 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence_tilt);
-        tvTest = findViewById(R.id.tvTest);
-        tvTest2 = findViewById(R.id.tvTest2);
-        tvTest3 = findViewById(R.id.tvTest3);
-        tvTest4 = findViewById(R.id.tvTest4);
-        tvResult = findViewById(R.id.tvResult);
-
         btnBlue = findViewById(R.id.btnBlue);
         btnYellow = findViewById(R.id.btnYellow);
         btnGreen = findViewById(R.id.btnGreen);
@@ -54,33 +47,6 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
 
 
         gameSequence = getIntent().getIntArrayExtra("gameSequence");
-
-        int first;
-        first = gameSequence[0];
-        tvTest.setText(String.valueOf(first));
-
-        int second;
-        second = gameSequence[1];
-        tvTest2.setText(String.valueOf(second));
-
-        int third;
-        third = gameSequence[2];
-        tvTest3.setText(String.valueOf(third));
-
-        int fourth;
-        fourth = gameSequence[3];
-        tvTest4.setText(String.valueOf(fourth));
-
-//        Intent gameOver = new Intent(SequenceTilt.this, GameOver.class);
-//
-//        if(firstSequence == true) {
-//            tvResult.setText("Correct!");
-//        }
-//        else {
-//            startActivity(gameOver);
-//        }
-
-//        userScore = userScore + 1;
 
         // we are going to use the sensor service
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -124,14 +90,6 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         super.onPause();
         mSensorManager.unregisterListener(this);    // turn off listener to save power
 
-//        if(firstSequence = true) {
-//            userScore++;
-//        }
-//
-//        if(secondSequence = true) {
-//            userScore++;
-//        }
-
     }
 
 
@@ -146,12 +104,8 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         float y = event.values[1];
         float z = event.values[2];
 
-//        if(firstSequence == false) {
             checkFirstSequence(x, y, z);
-//            mSensorManager.unregisterListener(this);
-//        }
 
-        tvResult.setText(String.valueOf(firstSequence));
         if(firstSequence == true) {
             x = 0;
             y = 0;
@@ -203,35 +157,6 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         return (double) tmp / factor;
     }
 
-
-    public void greenClick(View view) {
-//        green = true;
-//        checkFirstSequence();
-//        green = false;
-//        checkSecondSequence();
-    }
-
-    public void blueClick(View view) {
-//        blue = true;
-//        checkFirstSequence();
-//        blue = false;
-//        checkSecondSequence();
-    }
-
-    public void redClick(View view) {
-//        red = true;
-//        checkFirstSequence();
-//        red = false;
-//        checkSecondSequence();
-    }
-
-    public void yellowClick(View view) {
-//        yellow = true;
-//        checkFirstSequence();
-//        yellow = false;
-//        checkSecondSequence();
-    }
-
     public void setButtonVisibilty() {
         Handler h = new Handler();
         final Intent gameOver = new Intent(SequenceTilt.this, GameOver.class);
@@ -255,23 +180,16 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
 
         Handler h = new Handler();
 
-//        float x = event.values[0];
-//        float y = event.values[1];
-//        float z = event.values[2];
-
         // blue select
         if(x > 2 && z > 9 && gameSequence[0] == 1)
         {
             btnBlue.setPressed(true);
-//            tvResult.setText("blue");
             firstSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x > 2 && z > 9 && gameSequence[0] != 1)
         {
             btnBlue.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -279,15 +197,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(x < -5 && z < 7 && gameSequence[0] == 4)
         {
             btnGreen.setPressed(true);
-//            tvResult.setText("green");
             firstSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x < -5 && z < 7 && gameSequence[0] != 4)
         {
             btnGreen.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -296,15 +211,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y < -4 && z < 7 && gameSequence[0] == 3)
         {
             btnYellow.setPressed(true);
-//            tvResult.setText("yellow");
             firstSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y < -4 && z < 7 && gameSequence[0] != 3)
         {
             btnYellow.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -312,21 +224,14 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y > 3 && z > 8 && gameSequence[0] == 2)
         {
             btnRed.setPressed(true);
-//            tvResult.setText("yellow");
             firstSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y > 3 && z > 8 && gameSequence[0] != 2)
         {
             btnRed.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
-
-//        x = 0;
-//        y = 0;
-//        z = 0;
 
         if(firstSequence == true) {
             mSensorManager.unregisterListener(this);
@@ -335,30 +240,24 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
     }
 
     public void checkSecondSequence(float x, float y, float z) {
+        x = 0;
+        y = 0;
+        z = 0;
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         final Intent gameOver = new Intent(SequenceTilt.this, GameOver.class);
 
         Handler h = new Handler();
 
-
-
-//        float x = event.values[0];
-//        float y = event.values[1];
-//        float z = event.values[2];
-
         // blue select
         if(x > 2 && z > 9 && gameSequence[1] == 1 && firstSequence == true)
         {
             btnBlue.setPressed(true);
-//            tvResult.setText("blue");
             secondSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x > 2 && z > 9 && gameSequence[1] != 1 && firstSequence == true)
         {
             btnBlue.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -366,32 +265,25 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(x < -5 && z < 7 && gameSequence[1] == 4 && firstSequence == true)
         {
             btnGreen.setPressed(true);
-//            tvResult.setText("green");
             secondSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x < -5 && z < 7 && gameSequence[1] != 4 && firstSequence == true)
         {
             btnGreen.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
-
 
         // yellow select
         if(y < -4 && z < 7 && gameSequence[1] == 3 && firstSequence == true)
         {
             btnYellow.setPressed(true);
-//            tvResult.setText("yellow");
             secondSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y < -4 && z < 7 && gameSequence[1] != 3 && firstSequence == true)
         {
             btnYellow.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -399,18 +291,14 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y > 3 && z > 8 && gameSequence[1] == 2 && firstSequence == true)
         {
             btnRed.setPressed(true);
-//            tvResult.setText("yellow");
             secondSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y > 3 && z > 8 && gameSequence[1] != 2 && firstSequence == true)
         {
             btnRed.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
-
     }
 
     public void checkThirdSequence(float x, float y, float z) {
@@ -418,23 +306,16 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
 
         Handler h = new Handler();
 
-//        float x = event.values[0];
-//        float y = event.values[1];
-//        float z = event.values[2];
-
         // blue select
         if(x > 2 && z > 9 && gameSequence[2] == 1 && firstSequence == true && secondSequence == true)
         {
             btnBlue.setPressed(true);
-//            tvResult.setText("blue");
             thirdSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x > 2 && z > 9 && gameSequence[2] != 1 && firstSequence == true && secondSequence == true)
         {
             btnBlue.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -442,15 +323,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(x < -5 && z < 7 && gameSequence[2] == 4 && firstSequence == true && secondSequence == true)
         {
             btnGreen.setPressed(true);
-//            tvResult.setText("green");
             thirdSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x < -5 && z < 7 && gameSequence[2] != 4 && firstSequence == true && secondSequence == true)
         {
             btnGreen.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -459,15 +337,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y < -4 && z < 7 && gameSequence[2] == 3 && firstSequence == true && secondSequence == true)
         {
             btnYellow.setPressed(true);
-//            tvResult.setText("yellow");
             thirdSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y < -4 && z < 7 && gameSequence[2] != 3 && firstSequence == true && secondSequence == true)
         {
             btnYellow.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -475,15 +350,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y > 3 && z > 8 && gameSequence[2] == 2 && firstSequence == true && secondSequence == true)
         {
             btnRed.setPressed(true);
-//            tvResult.setText("yellow");
             thirdSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y > 3 && z > 8 && gameSequence[2] != 2 && firstSequence == true && secondSequence == true)
         {
             btnRed.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -494,23 +366,16 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
 
         Handler h = new Handler();
 
-//        float x = event.values[0];
-//        float y = event.values[1];
-//        float z = event.values[2];
-
         // blue select
         if(x > 2 && z > 9 && gameSequence[3] == 1 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnBlue.setPressed(true);
-//            tvResult.setText("blue");
             fourthSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x > 2 && z > 9 && gameSequence[3] != 1 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnBlue.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -518,15 +383,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(x < -5 && z < 7 && gameSequence[3] == 4 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnGreen.setPressed(true);
-//            tvResult.setText("green");
             fourthSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(x < -5 && z < 7 && gameSequence[3] != 4 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnGreen.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -535,15 +397,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y < -4 && z < 7 && gameSequence[3] == 3 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnYellow.setPressed(true);
-//            tvResult.setText("yellow");
             fourthSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y < -4 && z < 7 && gameSequence[3] != 3 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnYellow.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -551,15 +410,12 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
         if(y > 3 && z > 8 && gameSequence[3] == 2 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnRed.setPressed(true);
-//            tvResult.setText("yellow");
             thirdSequence = true;
-            tvResult.setText(String.valueOf(userScore));
         }
 
         if(y > 3 && z > 8 && gameSequence[3] != 2 && firstSequence == true && secondSequence == true && thirdSequence == true)
         {
             btnRed.setPressed(true);
-            tvResult.setText("wrong");
             setButtonVisibilty();
         }
 
@@ -579,158 +435,4 @@ public class SequenceTilt extends AppCompatActivity implements SensorEventListen
 
         }
     }
-
-
-//    public void checkSequences(View view) {
-//        Intent gameOver = new Intent(view.getContext(), GameOver.class);
-//
-//        checkFirstSequence();
-//
-//        red = false;
-//        blue = false;
-//        green = false;
-//        yellow = false;
-//        checkSecondSequence();
-//
-////            checkSecondSequence();
-//        if(firstSequence == true) {
-//            checkSecondSequence();
-//        }
-////        gameOver.putExtra("usersScore", userScore);
-//    }
-//
-//    public void checkFirstSequence() {
-//        Intent gameOver = new Intent(SequenceTilt.this, GameOver.class);
-//
-//        if(blue == true && gameSequence[0] != 1)
-//        {
-//            firstSequence = false;
-//            startActivity(gameOver);
-//        }
-//        else if(red == true && gameSequence[0] != 2)
-//        {
-//            firstSequence = false;
-//            startActivity(gameOver);
-//        }
-//        else if(yellow == true && gameSequence[0] != 3)
-//        {
-//            firstSequence = false;
-//            startActivity(gameOver);
-//        }
-//
-//        else if(green == true && gameSequence[0] != 4)
-//        {
-//            firstSequence = false;
-//            startActivity(gameOver);
-//        }
-//
-//
-//        else if(blue == true && gameSequence[0] == 1)
-//        {
-//            firstSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct!");
-//        }
-//        else if(red == true && gameSequence[0] == 2)
-//        {
-//            firstSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct!");
-//        }
-//        else if(yellow == true && gameSequence[0] == 3)
-//        {
-//            firstSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct!");
-//        }
-//
-//        else if(green == true && gameSequence[0] == 4)
-//        {
-//            firstSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct!");
-//        }
-//
-//            red = false;
-//            blue = false;
-//            green = false;
-//            yellow = false;
-//            firstSequence = true;
-//            for (int i = 0; i< gameSequence.length; i++) {
-//                gameSequence[i] = 0;
-//            }
-//            userScore = userScore + 1;
-////            checkSecondSequence();
-//
-//    }
-//
-//    public void checkSecondSequence() {
-//        Intent gameOver = new Intent(SequenceTilt.this, GameOver.class);
-//
-//        firstSequence = true;
-//        red = false;
-//        blue = false;
-//        green = false;
-//        yellow = false;
-//        secondSequence = false;
-//
-//        if(blue == true && gameSequence[1] != 1)
-//        {
-//            secondSequence = false;
-//            startActivity(gameOver);
-//        }
-//        else if(red == true && gameSequence[1] != 2)
-//        {
-//            secondSequence = false;
-//            startActivity(gameOver);
-//        }
-//        else if(yellow == true && gameSequence[1] != 3)
-//        {
-//            secondSequence = false;
-//            startActivity(gameOver);
-//        }
-//
-//        else if(green == true && gameSequence[1] != 4)
-//        {
-//            secondSequence = false;
-//            startActivity(gameOver);
-//        }
-//
-//
-//        else if(blue == true && gameSequence[1] == 1)
-//        {
-//            secondSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct Again!");
-//        }
-//        else if(red == true && gameSequence[1] == 2)
-//        {
-//            secondSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct Again!");
-//        }
-//        else if(yellow == true && gameSequence[1] == 3)
-//        {
-//            secondSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct Again!");
-//        }
-//
-//        else if(green == true && gameSequence[1] == 4)
-//        {
-//            secondSequence = true;
-//            userScore = userScore + 1;
-//            tvResult.setText("Correct Again!");
-//        }
-//
-//            red = false;
-//            blue = false;
-//            green = false;
-//            yellow = false;
-//            secondSequence = true;
-//            for (int i = 0; i< gameSequence.length; i++) {
-//                gameSequence[i] = 0;
-//            }
-//    }
-
 }

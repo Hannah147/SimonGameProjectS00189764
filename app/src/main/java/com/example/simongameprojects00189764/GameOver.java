@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 public class GameOver extends AppCompatActivity {
 
-//    int userScore;
     Integer userScore;
     TextView tvScore;
     EditText etUsername;
@@ -24,12 +23,9 @@ public class GameOver extends AppCompatActivity {
         tvScore = findViewById(R.id.tvScore);
         etUsername = findViewById(R.id.etUsername);
 
-//        Intent sequenceTilt = new Intent(GameOver.this, SequenceTilt.class);
-
         Intent intent = getIntent();
 
         userScore = intent.getIntExtra("userScore", 120);
-//        userScore = getIntent().getIntExtra("userScore", 13);
         tvScore.setText(String.valueOf(userScore));
 
 
@@ -55,6 +51,5 @@ public class GameOver extends AppCompatActivity {
             HighScores.putExtra("username", username);
             startActivity(HighScores);
         }
-
     }
 }

@@ -42,9 +42,6 @@ public class HighScores extends AppCompatActivity {
         db.addHiScore(new HiScore("22 NOV 2020", "Gemma", 22));
         db.addHiScore(new HiScore("22 NOV 2020", username, userScore));
 
-//        db.addHiScore(new HiScore("01 DEC 2020", "DarthV", 22));
-//        db.addHiScore(new HiScore("02 DEC 2020", "Gandalf", 132));
-
 
         // Reading all scores
         Log.i("Reading: ", "Reading all scores..");
